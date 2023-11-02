@@ -3,8 +3,9 @@ import React from 'react';
 function Felicitaciones({ nombreJugador, puntaje }) {
     return (
         <div>
-            <h1>¡Felicitaciones, {nombreJugador}!</h1>
-            <p>Tu puntaje total es: {puntaje}</p>
+            <h1>Congratulations, {nombreJugador}!</h1>
+            <p>Your total score: {puntaje}</p>
+            <p>Not bad!</p>
         </div>
     );
 }

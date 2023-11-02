@@ -25,13 +25,13 @@ function Inicio() {
     if (!mostrarJuego && !mostrarFelicitaciones) {
         return (
             <div>
-                <h1>Ingresa tu nombre</h1>
+                <h1>Enter your name</h1>
                 <input
                     type="text"
-                    placeholder="Nombre del niño"
+                    placeholder="Your name here"
                     onChange={(e) => setNombreJugador(e.target.value)}
                 />
-                <button onClick={() => manejarClickJugar(nombreJugador)}>Jugar</button>
+                <button onClick={() => manejarClickJugar(nombreJugador)}>Play</button>
             </div>
         );
     } else if (mostrarJuego) {
