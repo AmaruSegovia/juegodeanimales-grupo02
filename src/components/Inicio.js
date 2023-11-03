@@ -3,6 +3,7 @@ import Juego from './Juego';
 import Felicitaciones from './Felicitaciones';
 
 function Inicio() {
+    const [rondasTotales, setRondasTotales] = useState(Math.floor(Math.random() * 6) + 5);
     const [nombreJugador1, setNombreJugador1] = useState('');
     const [nombreJugador2, setNombreJugador2] = useState('');
     const [mostrarJuego, setMostrarJuego] = useState(false);
@@ -14,6 +15,7 @@ function Inicio() {
 
     const manejarClickJugar = () => {
         setMostrarJuego(true);
+        console.log(rondasTotales);
     };
 
     const alTerminar = (puntaje) => {
@@ -22,15 +24,9 @@ function Inicio() {
         } else {
             setPuntajeJugador2(puntaje);
         }
-
-        if (jugadorActual === 2) {
-            setRondaActual(rondaActual + 1);
-        }
-
-        if (rondaActual > 3) {
             setMostrarFelicitaciones(true);
-        }
     };
+
 
     return (
         <div>
@@ -42,6 +38,8 @@ function Inicio() {
                     alTerminar={alTerminar}
                     rondaActual={rondaActual}
                     setRondaActual={setRondaActual}
+                    rondasTotales={rondasTotales}
+                    setRondasTotales={setRondasTotales}
                     jugadorActual={jugadorActual}
                     setJugadorActual={setJugadorActual}
                 />
