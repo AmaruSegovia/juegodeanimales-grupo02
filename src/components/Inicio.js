@@ -3,58 +3,73 @@ import Juego from './Juego';
 import Felicitaciones from './Felicitaciones';
 
 function Inicio() {
-    const [nombreJugador, setNombreJugador] = useState('');
+    const [nombreJugador1, setNombreJugador1] = useState('');
+    const [nombreJugador2, setNombreJugador2] = useState('');
     const [mostrarJuego, setMostrarJuego] = useState(false);
-    const [puntaje, setPuntaje] = useState(0);
+    const [puntajeJugador1, setPuntajeJugador1] = useState(0);
+    const [puntajeJugador2, setPuntajeJugador2] = useState(0);
     const [mostrarFelicitaciones, setMostrarFelicitaciones] = useState(false);
     const [rondaActual, setRondaActual] = useState(1);
+    const [jugadorActual, setJugadorActual] = useState(1);
 
-    const manejarClickJugar = (nombre) => {
-        setNombreJugador(nombre);
+    const manejarClickJugar = () => {
         setMostrarJuego(true);
-        setPuntaje(0);
-        setMostrarFelicitaciones(false);
     };
 
     const alTerminar = (puntaje) => {
-        setPuntaje(puntaje);
-        setMostrarJuego(false);
-        setMostrarFelicitaciones(true);
+        if (jugadorActual === 1) {
+            setPuntajeJugador1(puntaje);
+        } else {
+            setPuntajeJugador2(puntaje);
+        }
+
+        if (jugadorActual === 2) {
+            setRondaActual(rondaActual + 1);
+        }
+
+        if (rondaActual > 3) {
+            setMostrarFelicitaciones(true);
+        }
     };
 
-    if (!mostrarJuego && !mostrarFelicitaciones) {
-        return (
-            <div>
-                <h1>Enter your name</h1>
-                <input
-                    type="text"
-                    placeholder="Your name here"
-                    onChange={(e) => setNombreJugador(e.target.value)}
-                />
-                <button onClick={() => manejarClickJugar(nombreJugador)}>Play</button>
-            </div>
-        );
-    } else if (mostrarJuego) {
-        return (
-            <div>
+    return (
+        <div>
+            {mostrarJuego ? (
                 <Juego
-                    nombreJugador={nombreJugador}
-                    puntaje={puntaje}
-                    setPuntaje={setPuntaje}
+                    nombreJugador={jugadorActual === 1 ? nombreJugador1 : nombreJugador2}
+                    puntaje={jugadorActual === 1 ? puntajeJugador1 : puntajeJugador2}
+                    setPuntaje={jugadorActual === 1 ? setPuntajeJugador1 : setPuntajeJugador2}
                     alTerminar={alTerminar}
                     rondaActual={rondaActual}
                     setRondaActual={setRondaActual}
-
+                    jugadorActual={jugadorActual}
+                    setJugadorActual={setJugadorActual}
                 />
-            </div>
-        );
-    } else if (mostrarFelicitaciones) {
-        return (
-            <div>
-                <Felicitaciones nombreJugador={nombreJugador} puntaje={puntaje} />
-            </div>
-        );
-    }
+            ) : (
+                <div>
+                    <h1>Player 1, enter your name</h1>
+                    <input
+                        type="text"
+                        placeholder="Your name here"
+                        onChange={(e) => setNombreJugador1(e.target.value)}
+                    />
+                    <h1>Player 2, enter your name</h1>
+                    <input
+                        type="text"
+                        placeholder="Your name here"
+                        onChange={(e) => setNombreJugador2(e.target.value)}
+                    />
+                    <button onClick={manejarClickJugar}>Play</button>
+                </div>
+            )}
+            {mostrarFelicitaciones && (
+                <div>
+                    <Felicitaciones nombreJugador={nombreJugador1} puntaje={puntajeJugador1} jugador="1" />
+                    <Felicitaciones nombreJugador={nombreJugador2} puntaje={puntajeJugador2} jugador="2" />
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Inicio;

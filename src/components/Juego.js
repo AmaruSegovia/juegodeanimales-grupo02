@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import animales1 from '../data/animales.json';
 
-function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,setRondaActual }) {
+function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, setRondaActual, jugadorActual, setJugadorActual }) {
     
     const [animalObjetivo, setAnimalObjetivo] = useState('');
     const [opciones, setOpciones] = useState([]);
@@ -45,14 +45,17 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
 
     const siguienteRonda = () => {
         if (rondaActual < rondasTotales) {
-            setRondaActual(rondaActual + 1);
+            if (jugadorActual == 2){
+                setRondaActual(rondaActual + 1);
+            }
             setEsCorrecto(null);
             setPuedeHacerClic(true);
+            setJugadorActual(jugadorActual === 1 ? 2 : 1);
             obtenerOpcionesAleatorias();
         } else {
             alTerminar(puntaje);
         }
-    };
+    }
 
     const opcionesDeshabilitadas = esCorrecto !== null;
 
@@ -77,8 +80,8 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
                 ))}
             </div>
             {esCorrecto === true && <p>Correct!</p>}
-            {esCorrecto === false && <p>Incorrect!</p>}
-            <button onClick={siguienteRonda}>Next question {"->"}</button>
+            {esCorrecto === false && <p>Incorrect!</p>} 
+            <button onClick={siguienteRonda} disabled={puedeHacerClic || !opcionesDeshabilitadas}>Next question {"->"}</button>
         </div>
     );
 }
