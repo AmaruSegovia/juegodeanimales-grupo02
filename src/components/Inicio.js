@@ -15,7 +15,6 @@ function Inicio() {
 
     const manejarClickJugar = () => {
         setMostrarJuego(true);
-        console.log(rondasTotales);
     };
 
     const alTerminar = (puntaje) => {
@@ -24,12 +23,11 @@ function Inicio() {
         } else {
             setPuntajeJugador2(puntaje);
         }
-            setMostrarFelicitaciones(true);
+        setMostrarFelicitaciones(true);
     };
 
-
     return (
-        <div>
+        <div className="inicio-container">
             {mostrarJuego ? (
                 <Juego
                     nombreJugador={jugadorActual === 1 ? nombreJugador1 : nombreJugador2}
@@ -44,7 +42,7 @@ function Inicio() {
                     setJugadorActual={setJugadorActual}
                 />
             ) : (
-                <div>
+                <div className="inicio-form">
                     <h1>Player 1, enter your name</h1>
                     <input
                         type="text"
@@ -57,11 +55,13 @@ function Inicio() {
                         placeholder="Your name here"
                         onChange={(e) => setNombreJugador2(e.target.value)}
                     />
-                    <button onClick={manejarClickJugar}>Play</button>
+                    <button className="jugar-button" onClick={manejarClickJugar}>
+                        Play
+                    </button>
                 </div>
             )}
             {mostrarFelicitaciones && (
-                <div>
+                <div className="felicitaciones-container">
                     <Felicitaciones nombreJugador={nombreJugador1} puntaje={puntajeJugador1} jugador="1" />
                     <Felicitaciones nombreJugador={nombreJugador2} puntaje={puntajeJugador2} jugador="2" />
                 </div>

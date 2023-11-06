@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import animales1 from '../data/animales.json';
+import './Estilo.css';
 
-function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, setRondaActual,rondasTotales,setRondasTotales, jugadorActual, setJugadorActual }) {
+function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, setRondaActual, rondasTotales, setRondasTotales, jugadorActual, setJugadorActual }) {
     
     const [rondaAreglo, setRondaAreglo] = useState(1);
     const [animalObjetivo, setAnimalObjetivo] = useState('');
@@ -42,11 +43,10 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
         }
         setPuedeHacerClic(false);
     };
-    const seUsaIf = () =>{
 
+    const seUsaIf = () => {
         if (jugadorActual === 1) {
             setRondaActual(rondaActual + 1);
-           
         }
     }
 
@@ -72,27 +72,27 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
     }, []);
 
     return (
-        <div>
-            <h1>{nombreJugador}, Can you guess this animal?</h1>
-            <p>Round Number: {rondaAreglo}</p>
-            <img src={`img/${animalObjetivo}.png`} alt={animalObjetivo} />
-            <div>
+        <div className="juego-container">
+            <h1 className="juego-title">{nombreJugador}, Can you guess this animal?</h1>
+            <p className="round-number">Round Number: {rondaAreglo}</p>
+            <img src={`img/${animalObjetivo}.png`} alt={animalObjetivo} className="animal-image" />
+            <div className="opciones-container">
                 {opciones.map((animal) => (
                     <button
                         key={animal}
                         onClick={() => verificarRespuesta(animal)}
                         disabled={!puedeHacerClic || opcionesDeshabilitadas}
+                        className="opcion-button"
                     >
                         {animal}
                     </button>
                 ))}
             </div>
-            {esCorrecto === true && <p>Correct!</p>}
-            {esCorrecto === false && <p>Incorrect!</p>} 
-            <button onClick={siguienteRonda} disabled={puedeHacerClic || !opcionesDeshabilitadas}>Next question {"->"}</button>
+            {esCorrecto === true && <p className="correct-message">Correct!</p>}
+            {esCorrecto === false && <p className="incorrect-message">Incorrect!</p>} 
+            <button onClick={siguienteRonda} disabled={puedeHacerClic || !opcionesDeshabilitadas} className="next-button">Next question {"->"}</button>
         </div>
     );
 }
 
 export default Juego;
-
