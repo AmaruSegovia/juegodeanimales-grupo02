@@ -3,6 +3,7 @@ import Juego from './Juego';
 import Felicitaciones from './Felicitaciones';
 
 function Inicio() {
+    const [rondasTotales, setRondasTotales] = useState(Math.floor(Math.random() * 6) + 5);
     const [nombreJugador1, setNombreJugador1] = useState('');
     const [nombreJugador2, setNombreJugador2] = useState('');
     const [mostrarJuego, setMostrarJuego] = useState(false);
@@ -22,18 +23,11 @@ function Inicio() {
         } else {
             setPuntajeJugador2(puntaje);
         }
-
-        if (jugadorActual === 2) {
-            setRondaActual(rondaActual + 1);
-        }
-
-        if (rondaActual > 3) {
-            setMostrarFelicitaciones(true);
-        }
+        setMostrarFelicitaciones(true);
     };
 
     return (
-        <div>
+        <div className="inicio-container">
             {mostrarJuego ? (
                 <Juego
                     nombreJugador={jugadorActual === 1 ? nombreJugador1 : nombreJugador2}
@@ -42,11 +36,13 @@ function Inicio() {
                     alTerminar={alTerminar}
                     rondaActual={rondaActual}
                     setRondaActual={setRondaActual}
+                    rondasTotales={rondasTotales}
+                    setRondasTotales={setRondasTotales}
                     jugadorActual={jugadorActual}
                     setJugadorActual={setJugadorActual}
                 />
             ) : (
-                <div>
+                <div className="inicio-form">
                     <h1>Player 1, enter your name</h1>
                     <input
                         type="text"
@@ -59,11 +55,13 @@ function Inicio() {
                         placeholder="Your name here"
                         onChange={(e) => setNombreJugador2(e.target.value)}
                     />
-                    <button onClick={manejarClickJugar}>Play</button>
+                    <button className="jugar-button" onClick={manejarClickJugar}>
+                        Play
+                    </button>
                 </div>
             )}
             {mostrarFelicitaciones && (
-                <div>
+                <div className="felicitaciones-container">
                     <Felicitaciones nombreJugador={nombreJugador1} puntaje={puntajeJugador1} jugador="1" />
                     <Felicitaciones nombreJugador={nombreJugador2} puntaje={puntajeJugador2} jugador="2" />
                 </div>
