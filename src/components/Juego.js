@@ -9,6 +9,7 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
     const [opciones, setOpciones] = useState([]);
     const [esCorrecto, setEsCorrecto] = useState(null);
     const [puedeHacerClic, setPuedeHacerClic] = useState(true);
+    const [usoComodin, setUsoComodin] = useState(true);
    
 
     const obtenerAnimalAleatorio = () => {
@@ -65,6 +66,12 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
         }
     }
 
+    const usarComodin = ()=>{
+        
+        setUsoComodin(false)
+        console.log(usoComodin);
+    }
+
     const opcionesDeshabilitadas = esCorrecto !== null;
 
     useEffect(() => {
@@ -77,20 +84,13 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
             <p className="round-number">Round Number: {rondaAreglo}</p>
             <img src={`img/${animalObjetivo}.png`} alt={animalObjetivo} className="animal-image" />
             <div className="opciones-container">
-                {opciones.map((animal) => (
-                    <button
-                        key={animal}
-                        onClick={() => verificarRespuesta(animal)}
-                        disabled={!puedeHacerClic || opcionesDeshabilitadas}
-                        className="opcion-button"
-                    >
-                        {animal}
-                    </button>
-                ))}
+                
             </div>
             {esCorrecto === true && <p className="correct-message">Correct!</p>}
             {esCorrecto === false && <p className="incorrect-message">Incorrect!</p>} 
             <button onClick={siguienteRonda} disabled={puedeHacerClic || !opcionesDeshabilitadas} className="next-button">Next question {"->"}</button>
+            <br></br>
+            {usoComodin ? <button onClick={usarComodin} className="next-button">Comodin</button>: null}
         </div>
     );
 }
