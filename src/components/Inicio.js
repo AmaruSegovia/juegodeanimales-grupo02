@@ -6,7 +6,7 @@ function Inicio() {
     const [rondasTotales, setRondasTotales] = useState(Math.floor(Math.random() * 6) + 5);
     const [nombreJugador1, setNombreJugador1] = useState('');
     const [nombreJugador2, setNombreJugador2] = useState('');
-    const [mostrarJuego, setMostrarJuego] = useState(true);
+    const [mostrarJuego, setMostrarJuego] = useState(false);
     const [puntajeJugador1, setPuntajeJugador1] = useState(0);
     const [puntajeJugador2, setPuntajeJugador2] = useState(0);
     const [mostrarFelicitaciones, setMostrarFelicitaciones] = useState(false);

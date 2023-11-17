@@ -9,9 +9,8 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
     const [opciones, setOpciones] = useState([]); // Opciones (botones) que se mostrarán
     const [esCorrecto, setEsCorrecto] = useState(null); // Estado de la respuesta (correcta, incorrecta)
     const [puedeHacerClic, setPuedeHacerClic] = useState(true); // Controla si se pueden hacer clic en los botones
-    const [usoComodin, setUsoComodin] = useState(true); // Controla si se puede usar el comodín
-    const [usoComodinJugador1, setUsoComodinJugador1] = useState(true);
-    const [usoComodinJugador2, setUsoComodinJugador2] = useState(true);
+    const [usoComodinJugador1, setUsoComodinJugador1] = useState(true); //Controla si el comodin del jugador1 fue usado
+    const [usoComodinJugador2, setUsoComodinJugador2] = useState(true);//Controla si el comodin del jugador2 fue usado
 
     // Función para obtener un animal aleatorio de la lista
     const obtenerAnimalAleatorio = () => {
@@ -57,7 +56,7 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
         
         // Actualiza el estado con las nuevas opciones y desactiva el uso del comodín
         setOpciones(nuevasOpciones);
-        setUsoComodin(false);
+        
     }
 
     // Función para verificar la respuesta del jugador
@@ -124,7 +123,8 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual, se
             {esCorrecto === false && <p className="incorrect-message">Incorrect!</p>} 
             <button onClick={siguienteRonda} disabled={puedeHacerClic || !opcionesDeshabilitadas} className="next-button">Next question {"->"}</button>
             <br></br>
-            {usoComodin ? <button onClick={usarComodin} className="next-button">Comodin</button>: null}
+            {jugadorActual === 1 && usoComodinJugador1 ? <button onClick={usarComodin} className="next-button">Comodin</button>: null}
+            {jugadorActual === 2 && usoComodinJugador2 ? <button onClick={usarComodin} className="next-button">Comodin</button>: null}
         </div>
     );
 }
