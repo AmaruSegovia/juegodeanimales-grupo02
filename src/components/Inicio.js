@@ -62,8 +62,13 @@ function Inicio() {
             )}
             {mostrarFelicitaciones && (
                 <div className="felicitaciones-container">
+                    <div className='felicitacion'>
                     <Felicitaciones nombreJugador={nombreJugador1} puntaje={puntajeJugador1} jugador="1" />
                     <Felicitaciones nombreJugador={nombreJugador2} puntaje={puntajeJugador2} jugador="2" />
+                    </div>
+                    <div className='resultadoTotal'>
+                    {puntajeJugador1 === puntajeJugador2 ? <p>Tie</p>: puntajeJugador1 > puntajeJugador2 ? <p>Win {nombreJugador1}</p> : <p>Win {nombreJugador2}</p>}
+                    </div>
                 </div>
             )}
         </div>
